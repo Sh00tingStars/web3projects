@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Login with MetaMask</h1>
+<p>Your Ethereum Address: <strong>{{ user_address }}</strong></p>
+<button id="login-button">Login with MetaMask</button>
+<script>
+    document.getElementById('login-button').addEventListener('click', async () => {
+        if (window.ethereum) {
+            try {
+                const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+                const user_address = accounts[0];
+                alert(`Successfully logged in as ${user_address}`);
+            } catch (error) {
+                alert('MetaMask login failed.');
+            }
+        } else {
+            alert('MetaMask is not available.');
+        }
+    });
+</script>
+{% endblock %}
